@@ -1,18 +1,22 @@
 <?php
 namespace BlogFram;
 
+use OCFram\Config;
+
 abstract class Application
 {
     protected $httpRequest;
     protected $httpResponse;
     protected $name;
     protected $user;
+    protected $config;
 
     public function __construct()
     {
         $this->httpRequest = new HTTPRequest($this);
         $this->httpResponse = new HTTPResponse($this);
         $this->user = New User($this);
+        $this->config = New Config($this);
         $this->name = '';
     }
 
@@ -71,5 +75,10 @@ abstract class Application
     public function user()
     {
         return $this->user;
+    }
+
+    public function config()
+    {
+        return $this->config;
     }
 }
