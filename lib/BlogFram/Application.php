@@ -1,7 +1,6 @@
 <?php
 namespace BlogFram;
 
-use OCFram\Config;
 
 abstract class Application
 {
@@ -25,7 +24,7 @@ abstract class Application
         $router = new Router();
 
         $xml = new \DOMDocument();
-        $xml->load(__DIR__. '/../../Config/routes.xml');
+        $xml->load(__DIR__. '/../../App/'.$this->name().'/Config/routes.xml');
 
         $routes = $xml->getElementsByTagName('route');
 
