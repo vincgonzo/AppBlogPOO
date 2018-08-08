@@ -9,9 +9,8 @@ class NewsManagerPDO extends NewsManager
     {
         $sql = 'SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM news ORDER BY id DESC';
 
-        if ($debut != -1 || $limite != -1)
-        {
-            $sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
+        if ($debut != -1 || $limite != -1) {
+            $sql .= ' LIMIT ' . (int)$limite . ' OFFSET ' . (int)$debut;
         }
 
         $requete = $this->dao->query($sql);
@@ -19,8 +18,7 @@ class NewsManagerPDO extends NewsManager
 
         $listeNews = $requete->fetchAll();
 
-        foreach ($listeNews as $news)
-        {
+        foreach ($listeNews as $news) {
             $news->setDateAjout(new \DateTime($news->dateAjout()));
             $news->setDateModif(new \DateTime($news->dateModif()));
         }
@@ -29,4 +27,24 @@ class NewsManagerPDO extends NewsManager
 
         return $listeNews;
     }
+
+    public function getUnique($id)
+    {
+        $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM news WHERE id = :id');
+        $requete->bindValue(':id', (int)$id, \PDO::PARAM_INT);
+        $requete->execute();
+
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
+
+        if ($news = $requete->fetch()) {
+            $news->setDateAjout(new \DateTime($news->dateAjout()));
+            $news->setDateModif(new \DateTime($news->dateModif()));
+
+            return $news;
+        }
+
+        return null;
+    }
+
+
 }
