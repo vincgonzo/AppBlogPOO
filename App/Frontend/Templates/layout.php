@@ -12,9 +12,8 @@
 </head>
 
 <body>
-<div id="wrap">
-
-    <div class="page-header" id="banner">
+<div id="wrap" class="container">
+    <div class="page-header jumbotron" id="banner">
         <div class="row">
             <div class="col-lg-8 col-md-7 col-sm-6">
                 <h1>Chatagin & Blog</h1>
@@ -24,7 +23,6 @@
             </div>
         </div>
     </div>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="/"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,10 +47,6 @@
             </form-->
         </div>
     </nav>
-
-
-
-
     <div id="content-wrap">
         <section id="main">
             <?php if($user->hasFlash()) echo '<p style="text-align:center;">'. $user->getFlash(). '</p>'; ?>
